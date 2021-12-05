@@ -4,10 +4,17 @@
 # Version de R: 4.1.1
 
 
-
-rm(list = ls())
-if(!require(pacman)) install.packages(pacman);require(pacman)
-p_load(tidyverse,rio,skimr,readxl,haven,WriteXLS)
-Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
+rm(list = ls()) # limpia el entorno de R
+require(pacman)
+p_load(tidyverse, # llamar y/o instalar las librerias de la clase
+       broom, # tidy-coefficients
+       mfx, # marginal effects
+       margins,  # marginal effects
+       estimatr, # robust standard errors
+       lmtest, # HAC (Newey-West) standard errors
+       fixest, # hdfe regressions (feols)
+       modelsummary, # Coefplot with modelplot
+       stargazer # export tables to latex 
+)  
 
 
