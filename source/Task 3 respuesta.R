@@ -6,9 +6,7 @@
 
 
 rm(list = ls())
-if(!require(pacman)) install.packages(pacman) 
-if(!require(pacman)) install.packages(pacman)
-require(pacman)
+if(!require(pacman)) install.packages(pacman);require(pacman)
 p_load(tidyverse,rio,skimr,readxl,haven,WriteXLS)
 Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
 
