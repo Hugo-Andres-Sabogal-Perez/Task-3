@@ -20,10 +20,29 @@ p_load(tidyverse,
        readxl,
        htmltools,
        XML,
-       rvest)  
+       rvest, sf)  
 
 #========================punto1============================================#
-print("espero que tania no me abadone en el trabajo de R")
+
+#====Punto1.1.1========#
+
+via = st_read("data/input/MGN_URB_TOPONIMIA.shp")
+puntos = st_read("data/input/MGN_URB_TOPONIMIA.shp")
+
+#====Punto1.1.2========#
+
+c_medico = puntos %>% filter(CSIMBOL %in% c("021001", "021002", "021003"))
+
+
+
+
+
+#====Punto1.1.3========#
+
+
+
+
+
 
 
 #========================Punto2============================================#
