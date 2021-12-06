@@ -4,19 +4,23 @@
 # Version de R: 4.1.1
 
 
-rm(list = ls()) # limpia el entorno de R
+rm(list = ls()) 
 require(pacman)
-p_load(tidyverse, # llamar y/o instalar las librerias de la clase
-       broom, # tidy-coefficients
-       mfx, # marginal effects
-       margins,  # marginal effects
-       estimatr, # robust standard errors
-       lmtest, # HAC (Newey-West) standard errors
-       fixest, # hdfe regressions (feols)
-       modelsummary, #g Coefplot with modelplot
-       stargazer, # export tables to latex
-       outreg
-)  
+p_load(tidyverse, 
+       broom, 
+       mfx, 
+       margins,  
+       estimatr,
+       lmtest, 
+       fixest, 
+       modelsummary, 
+       stargazer, 
+       outreg,
+       rio,
+       readxl,
+       htmltools,
+       XML,
+       rvest)  
 
 #========================punto1============================================#
 print("espero que tania no me abadone en el trabajo de R")
@@ -85,17 +89,26 @@ stargazer(ols, probit, logit,
 logit_m = margins(logit)
 probit_m = margins(probit)
 
-ggplot(logit_m, aes(x = fallecido, y = dydx_dist_hospi)) +
-  geom_point(alpha = 0.7) +
-  geom_smooth(method="lm" , se=T) + theme_bw()
-
-ggplot(map_muse, aes(logit_m = fallecido, y = dydx_dist_hospi)) +
-  geom_point(alpha = 0.7) +
-  geom_smooth(method="loess" , se=T) + theme_bw()
 
 
 
 
 
+#========================================punto 3==========================================#
+
+#======punto3.1======#
+departamentos_col = "https://es.wikipedia.org/wiki/Departamentos_de_Colombia"
+
+departamentos_col_html = read_html(departamentos_col)
+
+#======punto3.2======#
+
+titulo_pag = departamentos_col_html %>% html_nodes(xpath = '//*[@id="firstHeading"]') %>% html_text()
+
+#======punto3.3======#
+
+tabla = departamentos_col_html %>% html_nodes('table')
+
+tabla[4] %>% html_table(header = T,fill=T)
 
 
