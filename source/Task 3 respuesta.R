@@ -75,9 +75,7 @@ crs = "+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs"
 via_transf = st_transform(via,crs)
 puntos_transf = st_transform(puntos,crs)
 c_medico_transf = st_transform(c_medico,crs)
-c_poblado_transf = st_transform(c_poblado,crs)
-depto_transf = st_transform(depto,crs)
-mapmuse_transf = st_transform(mapmuse,crs)
+
 #======================Punto2============================================#
 
 #====Punto2.1========#
