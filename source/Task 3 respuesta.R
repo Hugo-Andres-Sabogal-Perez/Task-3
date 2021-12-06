@@ -13,8 +13,60 @@ p_load(tidyverse, # llamar y/o instalar las librerias de la clase
        estimatr, # robust standard errors
        lmtest, # HAC (Newey-West) standard errors
        fixest, # hdfe regressions (feols)
-       modelsummary, # Coefplot with modelplot
-       stargazer # export tables to latex 
+       modelsummary, #g Coefplot with modelplot
+       stargazer, # export tables to latex
+       outreg
 )  
+
+#========================punto1============================================#
+print("espero que tania no me abadone en el trabajo de R")
+
+
+#========================Punto2============================================#
+
+#====Punto2.1========#
+
+map_muse = readRDS("data/output/f_mapmuse.rds")
+
+lm(fallecido ~ year + condicion + dist_hospi + dist_vias + cod_mpio + actividad + month + dist_cpoblado + genero + tipo_accidente , data = map_muse)
+
+ols = lm(fallecido ~ year + condicion + dist_hospi + dist_vias + cod_mpio + actividad + month + dist_cpoblado + genero + tipo_accidente , data = map_muse)
+
+#====punto2.2=======#
+
+tabla_coef = tidy(ols , conf.int = TRUE)
+tabla_coef
+ggplot(tabla_coef , aes(x = estimate, y = term)) + theme_light() + 
+  geom_vline(aes(xintercept = 0),color="red",linetype="dashed",width=1) + 
+  geom_errorbar(width=.5, aes(xmin=conf.low, xmax=conf.high) , col="yellow" , show.legend = F) + 
+  geom_point(size = 3,show.legend = F , col="blue") +
+  theme(axis.text = element_text(color = "black", size = 15)) + 
+  labs(y="",x="coeficientes")
+
+#======punto2.3======#
+
+logit = glm(fallecido ~ year + condicion + dist_hospi + dist_vias + cod_mpio + actividad + month + dist_cpoblado + genero + tipo_accidente , data = map_muse , family = binomial(link="logit"))
+logit
+
+
+probit = glm(fallecido ~ year + condicion + dist_hospi + dist_vias + cod_mpio + actividad + month + dist_cpoblado + genero + tipo_accidente , data = map_muse , family = binomial(link="probit"))
+probit
+
+#======punto2.4======#
+install.packages('outreg')
+library(outreg)
+regresiones = list('Logit' = logit , 'Probit' = probit , "OLS" = ols)
+
+outreg(regresiones)
+
+tabla = outreg(regresiones, digits = 3L, alpha = c(0.1, 0.05, 0.01), 
+              bracket = c("se"), starred = c("coef"), robust = FALSE, small = TRUE,
+              constlast = FALSE, norepeat = TRUE)
+tabla
+
+
+
+
+
 
 
