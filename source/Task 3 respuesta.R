@@ -1,7 +1,7 @@
-# Elaborado por: Tania Reina,Hugo Sabogal
+# Elaborado por: Tania Reina, Hugo Sabogal
 # Fecha de elaboracion: 5/12/2021
 # Ultima modificacion: 5/11/2021
-# Version de R: 4.1.1
+# Version de R: 4.1.2
 
 
 rm(list = ls()) 
@@ -20,7 +20,7 @@ p_load(tidyverse,
        readxl,
        htmltools,
        XML,
-       rvest, sf)  
+       rvest, sf, skimr)  
 
 #========================punto1============================================#
 
@@ -33,14 +33,18 @@ puntos = st_read("data/input/MGN_URB_TOPONIMIA.shp")
 
 c_medico = puntos %>% filter(CSIMBOL %in% c("021001", "021002", "021003"))
 
-
-
-
-
 #====Punto1.1.3========#
 
+c_poblado = import("data/input/c poblado (2017).rds") %>%  filter(cod_dane >= 54001, cod_dane < 55000)
+
+depto = import("data/input/dp deptos (2017).rds") %>% filter(name_dpto=="NORTE DE SANTANDER")
+
+mapmuse = import("data/input/victimas_map-muse.rds")
+
+#====Punto1.2========#
 
 
+#====Punto1.3========#
 
 
 
@@ -109,13 +113,10 @@ logit_m = margins(logit)
 probit_m = margins(probit)
 
 
-
-
-
-
 #========================================punto 3==========================================#
 
 #======punto3.1======#
+
 departamentos_col = "https://es.wikipedia.org/wiki/Departamentos_de_Colombia"
 
 departamentos_col_html = read_html(departamentos_col)
