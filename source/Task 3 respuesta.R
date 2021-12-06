@@ -57,10 +57,24 @@ st_bbox(c_poblado)
 st_bbox(depto)
 st_bbox(mapmuse)
 
+#====Punto1.3.1========#
+
+st_crs(via)
+st_crs(puntos)
+st_crs(c_poblado)
+st_crs(depto)
+st_crs(mapmuse)
+
+
+#====Punto1.3.2========#
+
+crs = "+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs"
 
 
 
-#========================Punto2============================================#
+
+
+#======================Punto2============================================#
 
 #====Punto2.1========#
 
