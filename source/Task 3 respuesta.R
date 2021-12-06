@@ -43,15 +43,22 @@ mapmuse = import("data/input/victimas_map-muse.rds")
 
 #====Punto1.2========#
 
+skim(via)
+skim(puntos)
+skim(c_poblado)
+skim(depto)
+skim(mapmuse)
 
 #====Punto1.3========#
 
+st_bbox(mapmuse)
 
 
 
 #========================Punto2============================================#
 
 #====Punto2.1========#
+
 
 map_muse = readRDS("data/output/f_mapmuse.rds")
 
