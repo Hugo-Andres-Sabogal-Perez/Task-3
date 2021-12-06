@@ -51,7 +51,12 @@ skim(mapmuse)
 
 #====Punto1.3========#
 
+st_bbox(via)
+st_bbox(puntos)
+st_bbox(c_poblado)
+st_bbox(depto)
 st_bbox(mapmuse)
+
 
 
 
