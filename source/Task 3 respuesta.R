@@ -53,7 +53,7 @@ probit = glm(fallecido ~ year + condicion + dist_hospi + dist_vias + cod_mpio + 
 probit
 
 #======punto2.4======#
-install.packages('outreg')
+
 library(outreg)
 regresiones = list('Logit' = logit , 'Probit' = probit , "OLS" = ols)
 
@@ -62,7 +62,36 @@ outreg(regresiones)
 tabla = outreg(regresiones, digits = 3L, alpha = c(0.1, 0.05, 0.01), 
               bracket = c("se"), starred = c("coef"), robust = FALSE, small = TRUE,
               constlast = FALSE, norepeat = TRUE)
-tabla
+
+stargazer(ols, probit, logit,
+          type= 'text',
+          dep.var.labels = c('','Number of flights',''), 
+          df = FALSE,
+          digits = 3, 
+          out = paste0('modelos.text'))
+
+#en formato word
+
+stargazer(ols, probit, logit,
+          type= 'text',
+          dep.var.labels = c('','Number of flights',''), 
+          df = FALSE,
+          digits = 3, 
+          out = paste0('modelos.doc'))
+
+
+#======punto2.5======#
+
+logit_m = margins(logit)
+probit_m = margins(probit)
+
+ggplot(logit_m, aes(x = fallecido, y = dydx_dist_hospi)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method="lm" , se=T) + theme_bw()
+
+ggplot(map_muse, aes(logit_m = fallecido, y = dydx_dist_hospi)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method="loess" , se=T) + theme_bw()
 
 
 
